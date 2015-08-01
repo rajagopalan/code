@@ -57,8 +57,8 @@ $webclient = New-Object System.Net.WebClient
 
 
 IF(!([string]::IsNullOrEmpty($sdc_url))){
-    $webclient.DownloadFile($sdc_url,$build_exe)
-   if(!(Test-Path -Path $console_package)){
+    #$webclient.DownloadFile($sdc_url,$build_exe)
+   if(!(Test-Path -Path $build_exe)){
           write-host "Error: sdc not downloaded"
           exit 1
     }
@@ -99,10 +99,10 @@ Get-Location
 #cmd /c xcopy $targetConsoleDir $build_dir1 /EYF # copy the contents of console package into sdcinstall folder
 
 if($sdms_instance -eq "Prod"){
-                  if(!(Test-Path -Path $web_config)){
-                       write-host "Error: web_config not available"
-                       exit 1
-                  }
+	  if(!(Test-Path -Path $web_config)){
+		   write-host "Error: web_config not available"
+		   exit 1
+	  }
 	Copy-Item $web_config -Destination $build_dir1\root\www -verbose -Force # copy the web.config into sdcinstall\root\www only incase of prod/care
 }
 

@@ -1,0 +1,34 @@
+$instance = "Prod"
+write-host $instance
+$action = "false"
+write-host $action
+$do = ""
+if($action -eq "true"){
+   $do = "stop"
+}
+else{
+  $do = "start"
+}
+if ($instance -eq "Prod"){
+	$computers = "D:\sdc\prod_stage.txt"
+}
+elseif ($instance -eq "Care"){
+	$computers = "D:\sdc\care_stage.txt"
+}
+else  {
+	$computers = "D:\sdc\saas_stage.txt"
+}
+switch($instance){
+      Prod {Get-Content $Computers | foreach { 
+		cmd /c sc \\$_ $do sdc.scheduler.stage
+		}}
+      Care {Get-Content $Computers | foreach { 
+		cmd /c sc \\$_ $do sdc.scheduler.carestage
+		}}
+      Ustech {Get-Content $Computers | foreach { 
+		cmd /c sc \\$_ $do sdc.scheduler.ustechstage
+		}}
+      default{write-host "no action"}
+}
+write-host $lastexitcode
+exit $lastexitcode

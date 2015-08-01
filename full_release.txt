@@ -12,7 +12,7 @@ $sdms_instance = "prod" #give Value as Prod for Prod/Care
 $downloadDir = ""
 $storageDir = ""
 $string = "Release" #user input not required
-$type = "stage"
+$type = $env:type_release
 $output = ""
 $web_config = "\\any.network.share\d$\jenkins\workspace\prod\web.config" #this template file contains ninjato vpn whitelisting. To avoid writing
 #whitelisting into all machines after install, we copy the template into the sdc folder before we push it to app servers
@@ -57,8 +57,8 @@ $webclient = New-Object System.Net.WebClient
 
 
 IF(!([string]::IsNullOrEmpty($sdc_url))){
-    $webclient.DownloadFile($sdc_url,$build_exe)
-   if(!(Test-Path -Path $console_package)){
+    #$webclient.DownloadFile($sdc_url,$build_exe)
+   if(!(Test-Path -Path $build_exe)){
           write-host "Error: sdc not downloaded"
           exit 1
     }
