@@ -1,21 +1,20 @@
-#move-item batch batch_temp_76.2.bat
-$batch_temp_76 = "D:\web_v76.2.bat"
-$web_url = "http://downloads.dev.support.com/package/web/v76/web_76.1.18.0.zip"
+move-item batch batch_temp_76.2.bat #this command will move the batch file provided in deployment doc, uploaded through jenkins to a temp file name. This is because jenkins will upload file in the name of the control.
+$web_url = "http://downloads.dev.support.com/package/web/v76/web_76.1.18.0.zip" #user input
 $web_url_parts = $web_url.split("/")
 $m = $web_url_parts.length
 $web_pack = $web_url_parts[$m-1]
 $major_version = $web_url_parts[$m-2]
-$console_url = "http://downloads.dev.support.com/package/console/v76/console_incontact_76.1.41.0.zip"
+$console_url = "http://downloads.dev.support.com/package/console/v76/console_incontact_76.1.41.0.zip" #user input
 $console_url_parts = $console_url.split("/")
 $m = $console_url_parts.length
 $console_pack = $console_url_parts[$m-1]
-$minor_version = "2"
-$sdms_instance = "Prod"
+$minor_version = "2" #user input
+$sdms_instance = "Prod" #user input
 $string = "Release"
-$type = "stage"
+$type = "stage" #user input
 $downloadDir = "D:\sdc\download\prod\$major_version$string\$major_version.$minor_verison"
-$batch_file = "$downloadDir\web_batch.bat"
-$build = "sdcinstall_76.1.16.0"
+$batch_file = "$downloadDir\web_batch.bat" #this is the actual batch file which is going to be executed.
+$build = "sdcinstall_76.1.16.0" #user input
 write-host $batch_file
 write-host $batch_temp_76
 
@@ -60,12 +59,12 @@ IF(!([string]::IsNullOrEmpty($web_url))){
     write-host "finished downloading web package"
 }
 $targetConsoleDir = "$downloadDir\final_patch"
-& $sz x -y $console_pack "-o$targetConsoleDir"
+& $sz x -y $console_pack "-o$targetConsoleDir" #extract the console package into final patch
 if(!(Test-Path -Path $web_pack)){
     write-host "web package not available to patch"
 }
 else{
-	$c = "cmd /c $batch_file $web_pack $targetConsoleDir"
+	$c = "cmd /c $batch_file $web_pack $targetConsoleDir" #running the batch file provided by qa to extract the web package into final patch
 	invoke-expression -Command:$c
 }
 
@@ -88,7 +87,9 @@ foreach($element in $list) { write $element
 write-host copy-item $targetConsoleDir -Destination\\$element\$build\ -recurse -verbose # copy the sdc build across all app servers
 }
 
-
+#Note:
+#if there are more than two packages to be deployed, then run this job one time and then rename the final_patch folder
+#run the job for the other set of packages to be deployed
 
 
 
