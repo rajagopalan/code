@@ -1,0 +1,28 @@
+git commands
+ git pull ver1
+   73  git pull
+   74  git log
+   75  pwd
+   76  git status
+   77  git commit -a
+   78  git commit -a -m "new changes"
+   79  git push origin ver1
+   80  git pull --help
+   81  git pull origin ver1
+   82  vi .git
+   83  git push --help
+   84  git push -f origin ver1
+   85  git branch list
+   86  git branch
+   87  git checkout ver1
+   88  ll
+   89  git pull
+   90  git commit -m "code not commented"
+   91  git push origin -u ver1
+   92  git status
+   93  git add full_release.ps1
+   94  git commit -m "code not commented"
+   95  git push origin -u ver1
+   96  git pull
+   97  git pull
+   98  history
