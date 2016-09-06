@@ -94,7 +94,7 @@ if($lastexitcode -gt 0){
 
 Set-Location -Path $downloadDir
 Get-Location
-#cmd /c $build # run sdcinstall
+cmd /c $build # run sdcinstall
 
 #cmd /c xcopy $targetConsoleDir $build_dir1 /EYF # copy the contents of console package into sdcinstall folder
 
