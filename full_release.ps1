@@ -122,5 +122,5 @@ if(!(Test-Path -Path $computers)){
 $list = Get-Content $computers 
 
 foreach($element in $list) { write $element
-#copy-item $build_dir1 -Destination \\$element\$build_dir\ -recurse # copy the sdc build across all app servers
+copy-item $build_dir1 -Destination \\$element\$build_dir\ -recurse # copy the sdc build across all app servers
 }
