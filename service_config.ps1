@@ -28,5 +28,5 @@ switch($instance){
 		}}
       default{write-host "no action"}
 }
-write-host $lastexitcode
+#write-host $lastexitcode
 exit $lastexitcode
