@@ -1,4 +1,4 @@
-try{
+#try{
 	$computers = "D:\saas_Stage.txt"
 	get-content $computers
 	if ($error.count -gt 0){
